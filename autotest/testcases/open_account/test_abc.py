@@ -11,6 +11,9 @@ class Test_ABC():
         logger.info("------->teardown_class")
 
     def test_a(self, env_name):
+        '''
+        用户名非法
+        '''
         logger.info("------->test_a: %s" % env_name)
         assert 1 == 1
 

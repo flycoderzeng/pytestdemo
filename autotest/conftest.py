@@ -2,6 +2,8 @@
 import os
 import pytest
 from time import strftime
+from py.xml import html
+from datetime import datetime
 
 
 def pytest_configure(config):
@@ -30,3 +32,22 @@ def env_name(request):
     '''获取命令行参数，给到环境变量'''
     os.environ['env_name'] = request.config.getoption('--env_name')
     return request.config.getoption('--env_name')
+
+def pytest_html_results_table_header(cells):
+    cells.insert(1, html.th("用例描述", id='description'))
+    cells.insert(2, html.th("Time", class_="sortable time", col="time"))
+    cells.pop()
+
+def pytest_html_results_table_row(report, cells):
+    cells.insert(1, html.td(report.description))
+
+def pytest_html_results_table_row(report, cells):
+    cells.insert(1, html.td(report.description))
+    cells.insert(2, html.td(datetime.utcnow(), class_="col-time"))
+    cells.pop()
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    report.description = str(item.function.__doc__)

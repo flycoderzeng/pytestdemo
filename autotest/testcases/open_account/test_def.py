@@ -11,6 +11,9 @@ class Test_DEF():
         logger.info("------->teardown_class")
 
     def test_a(self, env_name):
+        '''
+        用户名为空
+        '''
         logger.info("------->test_d: %s" % env_name)
         assert 1 == 0
 

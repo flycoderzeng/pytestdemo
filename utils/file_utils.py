@@ -1,6 +1,6 @@
 class FileUtils:
     @staticmethod
-    def change_file(file, old_str, new_str, encoding: str = 'utf-8'):
+    def replace_file(file, old_str, new_str, encoding: str = 'utf-8'):
         """
         param file: 文件名
         param old_str: 旧字符串
